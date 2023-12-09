@@ -22,7 +22,7 @@ Two ways we can achieve importing our data:
 '''
 
 
-def implemetaion(name, dataset=False):
+def implementation(name, dataset=False):
 
     if dataset:
 
@@ -61,5 +61,20 @@ def implemetaion(name, dataset=False):
 
     rfr.fit(x_train, y_train)
 
-    return pickle.dump(rfr, open(f'/models/{name}.pkl', 'wb'))
+    # Creating a file that stores the model
+    pickle.dump(rfr, open(f'/models/{name}.pkl', 'wb'))
 
+
+# importing the names of the companies
+equity_data = pd.read_csv('EQUITY_L.csv')
+equity_symbols = equity_data['SYMBOL'].tolist()
+
+# downloading the data
+for x in equity_symbols:
+
+    stock_data_generator(x)
+
+# Creating the models
+for x in equity_symbols:
+
+    implementation(x)
