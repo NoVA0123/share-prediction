@@ -13,6 +13,7 @@ def stock_data_generator(stock_name):
 
     data = yf.download(stock_name + '.NS')
     data.to_csv('/data/' + stock_name + '.csv')
+    return data
 
 
 '''
@@ -22,7 +23,7 @@ Two ways we can achieve importing our data:
 '''
 
 
-def implementation(name, dataset=False):
+def implementation(data, name, dataset=False):
 
     if dataset:
 
@@ -72,9 +73,8 @@ equity_symbols = equity_data['SYMBOL'].tolist()
 # downloading the data
 for x in equity_symbols:
 
-    stock_data_generator(x)
-
+    data = stock_data_generator(x)
+    
 # Creating the models
-for x in equity_symbols:
-
-    implementation(x)
+    if len(data) >= 63:
+        implementation(x)
